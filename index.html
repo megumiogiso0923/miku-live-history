@@ -5,33 +5,156 @@
 <title>ミクライブ鑑賞履歴</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- フォント -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
 <script src="setlists.js"></script>
 
 <style>
-body { font-family: system-ui, sans-serif; background:#fafafa; padding:20px; }
-.event { background:#fff; border:1px solid #ddd; border-radius:8px; padding:10px; margin-bottom:6px; display:flex; align-items:center; }
-.event input { margin-right:10px; }
-.year { margin-top:20px; font-weight:bold; }
-button { margin-top:20px; padding:10px 16px; font-size:16px; }
-footer { margin-top:40px; font-size:12px; color:#555; border-top:1px solid #ccc; padding-top:15px; }
+:root{
+  --bg-main:#f2f7f9;
+  --card:#ffffff;
+  --accent:#39c5bb;
+  --text-main:#333;
+  --text-sub:#666;
+}
+
+body{
+  margin:0;
+  font-family:"Zen Kaku Gothic New", system-ui, sans-serif;
+  background:linear-gradient(180deg,#e8f6f5,#fdfefe);
+  color:var(--text-main);
+}
+
+header{
+  background:linear-gradient(135deg,#39c5bb,#7fe0d8);
+  color:#fff;
+  padding:24px 20px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:26px;
+  letter-spacing:0.05em;
+}
+
+header p{
+  margin-top:8px;
+  font-size:14px;
+  opacity:0.95;
+}
+
+main{
+  max-width:900px;
+  margin:0 auto;
+  padding:20px;
+}
+
+.year{
+  margin-top:28px;
+  margin-bottom:8px;
+  font-size:18px;
+  font-weight:700;
+  color:#2c8f89;
+}
+
+.event{
+  display:flex;
+  align-items:center;
+  background:var(--card);
+  border-radius:12px;
+  padding:12px 14px;
+  margin-bottom:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+  transition:transform .1s ease, box-shadow .1s ease;
+}
+
+.event:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+.event input{
+  transform:scale(1.2);
+  margin-right:12px;
+  accent-color:var(--accent);
+}
+
+.event span{
+  font-size:15px;
+}
+
+.action{
+  text-align:center;
+  margin-top:30px;
+}
+
+button{
+  background:linear-gradient(135deg,#39c5bb,#5fd3c8);
+  border:none;
+  color:#fff;
+  font-size:16px;
+  padding:12px 28px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(57,197,187,0.4);
+}
+
+button:hover{
+  opacity:0.95;
+}
+
+#result{
+  margin-top:30px;
+  background:#ffffff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+footer{
+  margin-top:50px;
+  padding:20px;
+  font-size:12px;
+  color:var(--text-sub);
+  text-align:center;
+  border-top:1px solid #ddd;
+  background:#fafafa;
+}
 </style>
 </head>
 
 <body>
 
-<h1>🎤 ミクライブ鑑賞履歴</h1>
-<p>見た公演にチェックを入れてください。</p>
+<header>
+  <h1>🎤 ミクライブ鑑賞履歴</h1>
+  <p>
+    これまでに参加した公演をチェックして、<br>
+    自分だけの「ミクライブの思い出」を振り返るための非公式ファンツールです。
+  </p>
+</header>
 
-<div id="eventList"></div>
+<main>
+  <div id="eventList"></div>
 
-<button onclick="showResult()">結果を見る</button>
+  <div class="action">
+    <button onclick="showResult()">チェック結果を見る</button>
+  </div>
 
-<div id="result"></div>
+  <div id="result" style="display:none;"></div>
+</main>
 
 <footer>
   <p>
-    本サイトは非公式・非商用のファンツールです。<br>
-    公式（クリプトン・フューチャー・メディア株式会社）とは一切関係ありません。
+    本サイトは個人による非公式・非商用のファンツールです。<br>
+    初音ミクおよび関連イベントの権利は、<br>
+    クリプトン・フューチャー・メディア株式会社ならびに各権利者に帰属します。
+  </p>
+  <p>
+    © Crypton Future Media, INC. www.piapro.net
   </p>
 </footer>
 
@@ -55,13 +178,25 @@ EVENTS.forEach(yearBlock => {
   });
 });
 
-function showResult() {
+function showResult(){
   const checked = document.querySelectorAll("input:checked");
-  document.getElementById("result").innerText =
-    `選択公演数：${checked.length}`;
+  const result = document.getElementById("result");
+  result.style.display = "block";
+
+  if(checked.length === 0){
+    result.innerHTML = "まだ公演が選択されていません。";
+    return;
+  }
+
+  result.innerHTML = `
+    <h2>選択した公演数</h2>
+    <p>${checked.length} 公演</p>
+    <p style="color:#666;font-size:14px;">
+      ※ 今後ここに「見た曲一覧」「回数」「キャラ別表示」などが追加されます。
+    </p>
+  `;
 }
 </script>
 
 </body>
 </html>
-
