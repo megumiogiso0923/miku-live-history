@@ -11,26 +11,49 @@ body {
   margin:0;
   padding:20px;
 }
-h1 { margin-bottom:10px; }
+
+h1 {
+  margin-bottom:8px;
+}
+
+p {
+  color:#555;
+  margin-top:0;
+}
+
+.event-list {
+  margin-top:20px;
+}
 
 .event {
+  display:flex;
+  align-items:center;
   background:#fff;
-  border:1px solid #ccc;
+  border:1px solid #ddd;
   border-radius:8px;
   padding:10px;
   margin-bottom:8px;
 }
 
+.event input {
+  margin-right:12px;
+}
+
 button {
-  padding:8px 16px;
-  margin-top:10px;
+  margin-top:20px;
+  padding:10px 16px;
+  font-size:16px;
 }
 
 .result {
-  margin-top:20px;
-  padding:15px;
+  margin-top:30px;
   background:#eef;
   border-radius:8px;
+  padding:15px;
+}
+
+.song {
+  margin:4px 0;
 }
 
 .miku { color:#39c5bb; }
@@ -51,46 +74,51 @@ footer {
 <body>
 
 <h1>🎤 ミクライブ鑑賞履歴</h1>
-
 <p>
-見たことのあるライブを選ぶだけで、<br>
-<strong>これまでに見た演目</strong>を振り返れます。
+見たことのある公演にチェックを入れるだけで、<br>
+これまでに見た演目をまとめて確認できます。
 </p>
 
-<h2>① 見た公演を選択</h2>
-<div id="eventList"></div>
+<div class="event-list" id="eventList"></div>
 
 <button onclick="showResult()">結果を見る</button>
 
 <div id="result" class="result" style="display:none;"></div>
 
 <footer>
-<p>
-本サイトは非公式・非商用のファンツールです。<br>
-クリプトン・フューチャー・メディア株式会社および公式イベントとは一切関係ありません。
-</p>
-<p>
-© Crypton Future Media, INC. www.piapro.net<br>
-※ 権利は各権利者に帰属します。
-</p>
+  <p>
+    本サイトは、個人がヲタ活をより楽しむために制作した
+    非公式・非商用のファンツールです。<br><br>
+    クリプトン・フューチャー・メディア株式会社および
+    公式イベントとは一切関係ありません。
+  </p>
+  <p>
+    © Crypton Future Media, INC. www.piapro.net<br>
+    ※ キャラクターおよび楽曲の権利は各権利者に帰属します。
+  </p>
 </footer>
 
 <script>
-/* ==== 管理者が用意したデータだけを使う ==== */
+/* ===== 公開用データ（管理者が事前に確定させたもの） ===== */
+
 const EVENTS = [
   {
-    name: "マジカルミライ2013 夜",
-    year: 2013,
-    songs: ["Tell Your World","ワールドイズマイン"]
+    title: "マジカルミライ 2013（夜）",
+    songs: ["Tell Your World", "ワールドイズマイン"]
   },
   {
-    name: "マジカルミライ2014 昼",
-    year: 2014,
-    songs: ["Tell Your World","千本桜"]
+    title: "マジカルミライ 2014（昼）",
+    songs: ["Tell Your World", "千本桜"]
+  },
+  {
+    title: "マジカルミライ 2014（夜）",
+    songs: ["ワールドイズマイン", "千本桜"]
   }
 ];
 
-function charClass(song) {
+/* ===== 表示 ===== */
+
+function getCharClass(song) {
   if (/リン|レン|Rin|Len/i.test(song)) return "rinlen";
   if (/ルカ|Luka/i.test(song)) return "luka";
   if (/MEIKO/i.test(song)) return "meiko";
@@ -99,40 +127,48 @@ function charClass(song) {
 }
 
 const list = document.getElementById("eventList");
-EVENTS.forEach((e,i)=>{
+
+EVENTS.forEach((event, index) => {
   const div = document.createElement("div");
-  div.className="event";
-  div.innerHTML=`<label>
-    <input type="checkbox" data-i="${i}"> ${e.name}
-  </label>`;
+  div.className = "event";
+  div.innerHTML = `
+    <input type="checkbox" data-index="${index}">
+    <span>${event.title}</span>
+  `;
   list.appendChild(div);
 });
 
-function showResult(){
-  const checked = document.querySelectorAll("input:checked");
+/* ===== 結果表示 ===== */
+
+function showResult() {
+  const checked = document.querySelectorAll("input[type=checkbox]:checked");
   const seen = {};
-  checked.forEach(c=>{
-    EVENTS[c.dataset.i].songs.forEach(s=>{
-      const key = s.toLowerCase();
-      if(!seen[key]) seen[key]=s;
+
+  checked.forEach(c => {
+    EVENTS[c.dataset.index].songs.forEach(song => {
+      const key = song.toLowerCase();
+      if (!seen[key]) seen[key] = song;
     });
   });
 
-  const r = document.getElementById("result");
-  r.style.display="block";
+  const result = document.getElementById("result");
+  result.style.display = "block";
 
-  if(Object.keys(seen).length===0){
-    r.innerHTML="まだ選択されていません。";
+  if (Object.keys(seen).length === 0) {
+    result.innerHTML = "公演が選択されていません。";
     return;
   }
 
-  r.innerHTML =
-    "<h2>② リザルト</h2>" +
+  result.innerHTML =
+    "<h2>見たことのある演目</h2>" +
     Object.values(seen)
-      .map(s=>`<div class="${charClass(s)}">${s}</div>`)
+      .map(song =>
+        `<div class="song ${getCharClass(song)}">${song}</div>`
+      )
       .join("");
 }
 </script>
 
 </body>
 </html>
+
