@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>管理者｜セットリスト登録</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: system-ui, sans-serif;
+  padding:20px;
+}
+textarea {
+  width:100%;
+  height:200px;
+}
+button {
+  margin-top:10px;
+  padding:6px 12px;
+}
+</style>
+</head>
+<body>
+
+<h1>🛠 管理者ページ</h1>
+
+<p>
+イベント名を入れると、<br>
+<strong>Wikipediaから関連ページを探し、セットリスト候補を自動抽出</strong>します。
+</p>
+
+<input id="event" placeholder="例：マジカルミライ2015">
+<button onclick="fetchFromWikipedia()">自動取得</button>
+
+<div id="result"></div>
+
+<script>
+async function fetchFromWikipedia(){
+  const e = document.getElementById("event").value;
+  const r = document.getElementById("result");
+  r.innerHTML="検索中…";
+
+  const search =
+    "https://ja.wikipedia.org/w/api.php" +
+    "?action=query&list=search&srsearch=" +
+    encodeURIComponent(e + " セットリスト") +
+    "&format=json&origin=*";
+
+  const sres = await fetch(search).then(r=>r.json());
+  if(!sres.query.search.length){
+    r.innerHTML="該当ページが見つかりません。";
+    return;
+  }
+
+  const title = sres.query.search[0].title;
+
+  const page =
+    "https://ja.wikipedia.org/w/api.php" +
+    "?action=parse&prop=wikitext&page=" +
+    encodeURIComponent(title) +
+    "&format=json&origin=*";
+
+  const pres = await fetch(page).then(r=>r.json());
+  const text = pres.parse.wikitext["*"];
+
+  const songs = text.split("\n")
+    .filter(l=>l.startsWith("*") || /^[0-9]/.test(l))
+    .map(l=>l.replace(/[*0-9\.．\[\]]/g,"").trim())
+    .filter(l=>l.length>1);
+
+  r.innerHTML =
+    "<h3>取得候補（確認してコピペ）</h3>" +
+    "<textarea>" + [...new Set(songs)].join("\n") + "</textarea>";
+}
+</script>
+
+</body>
+</html>
