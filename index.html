@@ -4,168 +4,61 @@
 <meta charset="UTF-8">
 <title>ミクライブ鑑賞履歴</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="setlists.js"></script>
+
 <style>
-body {
-  font-family: system-ui, sans-serif;
-  background:#fafafa;
-  margin:0;
-  padding:20px;
-}
-
-h1 {
-  margin-bottom:8px;
-}
-
-p {
-  color:#555;
-  margin-top:0;
-}
-
-.event-list {
-  margin-top:20px;
-}
-
-.event {
-  display:flex;
-  align-items:center;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:8px;
-  padding:10px;
-  margin-bottom:8px;
-}
-
-.event input {
-  margin-right:12px;
-}
-
-button {
-  margin-top:20px;
-  padding:10px 16px;
-  font-size:16px;
-}
-
-.result {
-  margin-top:30px;
-  background:#eef;
-  border-radius:8px;
-  padding:15px;
-}
-
-.song {
-  margin:4px 0;
-}
-
-.miku { color:#39c5bb; }
-.rinlen { color:#f5b400; }
-.luka { color:#ff8fd1; }
-.meiko { color:#e53935; }
-.kaito { color:#1e88e5; }
-
-footer {
-  margin-top:40px;
-  font-size:12px;
-  color:#555;
-  border-top:1px solid #ccc;
-  padding-top:15px;
-}
+body { font-family: system-ui, sans-serif; background:#fafafa; padding:20px; }
+.event { background:#fff; border:1px solid #ddd; border-radius:8px; padding:10px; margin-bottom:6px; display:flex; align-items:center; }
+.event input { margin-right:10px; }
+.year { margin-top:20px; font-weight:bold; }
+button { margin-top:20px; padding:10px 16px; font-size:16px; }
+footer { margin-top:40px; font-size:12px; color:#555; border-top:1px solid #ccc; padding-top:15px; }
 </style>
 </head>
+
 <body>
 
 <h1>🎤 ミクライブ鑑賞履歴</h1>
-<p>
-見たことのある公演にチェックを入れるだけで、<br>
-これまでに見た演目をまとめて確認できます。
-</p>
+<p>見た公演にチェックを入れてください。</p>
 
-<div class="event-list" id="eventList"></div>
+<div id="eventList"></div>
 
 <button onclick="showResult()">結果を見る</button>
 
-<div id="result" class="result" style="display:none;"></div>
+<div id="result"></div>
 
 <footer>
   <p>
-    本サイトは、個人がヲタ活をより楽しむために制作した
-    非公式・非商用のファンツールです。<br><br>
-    クリプトン・フューチャー・メディア株式会社および
-    公式イベントとは一切関係ありません。
-  </p>
-  <p>
-    © Crypton Future Media, INC. www.piapro.net<br>
-    ※ キャラクターおよび楽曲の権利は各権利者に帰属します。
+    本サイトは非公式・非商用のファンツールです。<br>
+    公式（クリプトン・フューチャー・メディア株式会社）とは一切関係ありません。
   </p>
 </footer>
 
 <script>
-/* ===== 公開用データ（管理者が事前に確定させたもの） ===== */
-
-const EVENTS = [
-  {
-    title: "マジカルミライ 2013（夜）",
-    songs: ["Tell Your World", "ワールドイズマイン"]
-  },
-  {
-    title: "マジカルミライ 2014（昼）",
-    songs: ["Tell Your World", "千本桜"]
-  },
-  {
-    title: "マジカルミライ 2014（夜）",
-    songs: ["ワールドイズマイン", "千本桜"]
-  }
-];
-
-/* ===== 表示 ===== */
-
-function getCharClass(song) {
-  if (/リン|レン|Rin|Len/i.test(song)) return "rinlen";
-  if (/ルカ|Luka/i.test(song)) return "luka";
-  if (/MEIKO/i.test(song)) return "meiko";
-  if (/KAITO/i.test(song)) return "kaito";
-  return "miku";
-}
-
 const list = document.getElementById("eventList");
 
-EVENTS.forEach((event, index) => {
-  const div = document.createElement("div");
-  div.className = "event";
-  div.innerHTML = `
-    <input type="checkbox" data-index="${index}">
-    <span>${event.title}</span>
-  `;
-  list.appendChild(div);
+EVENTS.forEach(yearBlock => {
+  const y = document.createElement("div");
+  y.className = "year";
+  y.textContent = yearBlock.year;
+  list.appendChild(y);
+
+  yearBlock.shows.forEach(show => {
+    const d = document.createElement("div");
+    d.className = "event";
+    d.innerHTML = `
+      <input type="checkbox" data-id="${show.id}">
+      <span>${show.label}</span>
+    `;
+    list.appendChild(d);
+  });
 });
 
-/* ===== 結果表示 ===== */
-
 function showResult() {
-  const checked = document.querySelectorAll("input[type=checkbox]:checked");
-  const seen = {};
-
-  checked.forEach(c => {
-    EVENTS[c.dataset.index].songs.forEach(song => {
-      const key = song.toLowerCase();
-      if (!seen[key]) seen[key] = song;
-    });
-  });
-
-  const result = document.getElementById("result");
-  result.style.display = "block";
-
-  if (Object.keys(seen).length === 0) {
-    result.innerHTML = "公演が選択されていません。";
-    return;
-  }
-
-  result.innerHTML =
-    "<h2>見たことのある演目</h2>" +
-    Object.values(seen)
-      .map(song =>
-        `<div class="song ${getCharClass(song)}">${song}</div>`
-      )
-      .join("");
+  const checked = document.querySelectorAll("input:checked");
+  document.getElementById("result").innerText =
+    `選択公演数：${checked.length}`;
 }
 </script>
 
