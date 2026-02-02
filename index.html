@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ミクライブ鑑賞履歴</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: system-ui, sans-serif;
+  background:#fafafa;
+  margin:0;
+  padding:20px;
+}
+h1 { margin-bottom:10px; }
+
+.event {
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:8px;
+  padding:10px;
+  margin-bottom:8px;
+}
+
+button {
+  padding:8px 16px;
+  margin-top:10px;
+}
+
+.result {
+  margin-top:20px;
+  padding:15px;
+  background:#eef;
+  border-radius:8px;
+}
+
+.miku { color:#39c5bb; }
+.rinlen { color:#f5b400; }
+.luka { color:#ff8fd1; }
+.meiko { color:#e53935; }
+.kaito { color:#1e88e5; }
+
+footer {
+  margin-top:40px;
+  font-size:12px;
+  color:#555;
+  border-top:1px solid #ccc;
+  padding-top:15px;
+}
+</style>
+</head>
+<body>
+
+<h1>🎤 ミクライブ鑑賞履歴</h1>
+
+<p>
+見たことのあるライブを選ぶだけで、<br>
+<strong>これまでに見た演目</strong>を振り返れます。
+</p>
+
+<h2>① 見た公演を選択</h2>
+<div id="eventList"></div>
+
+<button onclick="showResult()">結果を見る</button>
+
+<div id="result" class="result" style="display:none;"></div>
+
+<footer>
+<p>
+本サイトは非公式・非商用のファンツールです。<br>
+クリプトン・フューチャー・メディア株式会社および公式イベントとは一切関係ありません。
+</p>
+<p>
+© Crypton Future Media, INC. www.piapro.net<br>
+※ 権利は各権利者に帰属します。
+</p>
+</footer>
+
+<script>
+/* ==== 管理者が用意したデータだけを使う ==== */
+const EVENTS = [
+  {
+    name: "マジカルミライ2013 夜",
+    year: 2013,
+    songs: ["Tell Your World","ワールドイズマイン"]
+  },
+  {
+    name: "マジカルミライ2014 昼",
+    year: 2014,
+    songs: ["Tell Your World","千本桜"]
+  }
+];
+
+function charClass(song) {
+  if (/リン|レン|Rin|Len/i.test(song)) return "rinlen";
+  if (/ルカ|Luka/i.test(song)) return "luka";
+  if (/MEIKO/i.test(song)) return "meiko";
+  if (/KAITO/i.test(song)) return "kaito";
+  return "miku";
+}
+
+const list = document.getElementById("eventList");
+EVENTS.forEach((e,i)=>{
+  const div = document.createElement("div");
+  div.className="event";
+  div.innerHTML=`<label>
+    <input type="checkbox" data-i="${i}"> ${e.name}
+  </label>`;
+  list.appendChild(div);
+});
+
+function showResult(){
+  const checked = document.querySelectorAll("input:checked");
+  const seen = {};
+  checked.forEach(c=>{
+    EVENTS[c.dataset.i].songs.forEach(s=>{
+      const key = s.toLowerCase();
+      if(!seen[key]) seen[key]=s;
+    });
+  });
+
+  const r = document.getElementById("result");
+  r.style.display="block";
+
+  if(Object.keys(seen).length===0){
+    r.innerHTML="まだ選択されていません。";
+    return;
+  }
+
+  r.innerHTML =
+    "<h2>② リザルト</h2>" +
+    Object.values(seen)
+      .map(s=>`<div class="${charClass(s)}">${s}</div>`)
+      .join("");
+}
+</script>
+
+</body>
+</html>
