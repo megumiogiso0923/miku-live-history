@@ -141,7 +141,8 @@ footer{
   <div id="eventList"></div>
 
   <div class="action">
-    <button onclick="showResult()">チェック結果を見る</button>
+    <button onclick="goResult()">チェック結果を見る</button>
+
   </div>
 
   <div id="result" style="display:none;"></div>
@@ -159,6 +160,19 @@ footer{
 </footer>
 
 <script>
+function goResult(){
+  const checked = document.querySelectorAll("input:checked");
+  const ids = Array.from(checked).map(c => c.dataset.id);
+
+  if(ids.length === 0){
+    alert("公演を1つ以上選択してください");
+    return;
+  }
+
+  localStorage.setItem("selectedShows", JSON.stringify(ids));
+  location.href = "result.html";
+}
+  
 const list = document.getElementById("eventList");
 
 EVENTS.forEach(yearBlock => {
