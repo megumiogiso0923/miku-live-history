@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>鑑賞リザルト</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<script src="setlists.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  background:linear-gradient(180deg,#f5fbfb,#ffffff);
+  color:#333;
+}
+header{
+  background:#39c5bb;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+}
+main{
+  max-width:900px;
+  margin:0 auto;
+  padding:20px;
+}
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:20px;
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+h2{
+  margin-top:0;
+  color:#2c8f89;
+}
+.song{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px solid #eee;
+}
+.character{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  margin:4px;
+  color:#fff;
+  font-size:13px;
+}
+.miku{background:#39c5bb;}
+.rin{background:#f5c400;}
+.len{background:#ff9800;}
+.luka{background:#e91e63;}
+.meiko{background:#d32f2f;}
+.kaito{background:#1e88e5;}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎶 鑑賞リザルト</h1>
+  <p>これまでのミクライブ体験を振り返ろう</p>
+</header>
+
+<main>
+  <div class="card" id="summary"></div>
+  <div class="card" id="songRanking"></div>
+  <div class="card" id="characterStats"></div>
+</main>
+
+<script>
+const selected = JSON.parse(localStorage.getItem("selectedShows") || "[]");
+
+const songCount = {};
+const characterCount = {};
+
+EVENTS.forEach(year=>{
+  year.shows.forEach(show=>{
+    if(!selected.includes(show.id)) return;
+
+    show.songs.forEach(song=>{
+      if(!songCount[song.title]){
+        songCount[song.title] = {
+          count:0,
+          character:song.character
+        };
+      }
+      songCount[song.title].count += 1;
+
+      characterCount[song.character] =
+        (characterCount[song.character] || 0) + 1;
+    });
+  });
+});
+
+// サマリー
+document.getElementById("summary").innerHTML = `
+  <h2>概要</h2>
+  <p>選択公演数：${selected.length}</p>
+  <p>視聴楽曲数：${Object.keys(songCount).length}</p>
+`;
+
+// 曲ランキング
+const ranking = Object.entries(songCount)
+  .sort((a,b)=>b[1].count - a[1].count);
+
+document.getElementById("songRanking").innerHTML = `
+  <h2>演目ランキング</h2>
+  ${ranking.map(([title,data])=>`
+    <div class="song">
+      <span>${title}</span>
+      <strong>${data.count} 回</strong>
+    </div>
+  `).join("")}
+`;
+
+// キャラ集計
+document.getElementById("characterStats").innerHTML = `
+  <h2>キャラクター別</h2>
+  ${Object.entries(characterCount).map(([ch,count])=>`
+    <span class="character ${ch.toLowerCase()}">
+      ${ch}：${count}
+    </span>
+  `).join("")}
+`;
+</script>
+
+</body>
+</html>
