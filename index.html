@@ -170,7 +170,7 @@ function goResult(){
   localStorage.setItem("selectedShows", JSON.stringify(ids));
   location.href = "result.html";
 }
-  
+
 const list = document.getElementById("eventList");
 
 EVENTS.forEach(yearBlock => {
@@ -189,17 +189,8 @@ EVENTS.forEach(yearBlock => {
     list.appendChild(d);
   });
 });
-
-
-  result.innerHTML = `
-    <h2>選択した公演数</h2>
-    <p>${checked.length} 公演</p>
-    <p style="color:#666;font-size:14px;">
-      ※ 今後ここに「見た曲一覧」「回数」「キャラ別表示」などが追加されます。
-    </p>
-  `;
-}
 </script>
+
 
 </body>
 </html>
