@@ -139,11 +139,12 @@ footer{
 
 <main>
   <div id="eventList"></div>
-  <div id="result" style="display:none;"></div>
-  <div class="action">
-  <button onclick="goResult()">結果を見る</button>
-</div>
 
+  <div class="action">
+    <button onclick="goResult()">チェック結果を見る</button>
+  </div>
+
+  <div id="result" style="display:none;"></div>
 </main>
 
 <footer>
@@ -158,19 +159,6 @@ footer{
 </footer>
 
 <script>
-function goResult(){
-  const checked = document.querySelectorAll("input:checked");
-  const ids = Array.from(checked).map(c => c.dataset.id);
-
-  if(ids.length === 0){
-    alert("公演を1つ以上選択してください");
-    return;
-  }
-
-  localStorage.setItem("selectedShows", JSON.stringify(ids));
-  location.href = "result.html";
-}
-
 const list = document.getElementById("eventList");
 
 EVENTS.forEach(yearBlock => {
@@ -189,8 +177,41 @@ EVENTS.forEach(yearBlock => {
     list.appendChild(d);
   });
 });
-</script>
 
+function showResult(){
+  const checked = document.querySelectorAll("input:checked");
+  const result = document.getElementById("result");
+  result.style.display = "block";
+
+  if(checked.length === 0){
+    result.innerHTML = "まだ公演が選択されていません。";
+    return;
+  }
+
+  result.innerHTML = `
+    <h2>選択した公演数</h2>
+    <p>${checked.length} 公演</p>
+    <p style="color:#666;font-size:14px;">
+      ※ 今後ここに「見た曲一覧」「回数」「キャラ別表示」などが追加されます。
+    </p>
+  `;
+}
+
+function goResult(){
+  const checked = document.querySelectorAll("input:checked");
+  const ids = Array.from(checked).map(c => c.dataset.id);
+
+  if(ids.length === 0){
+    alert("公演を1つ以上選択してください");
+    return;
+  }
+
+  localStorage.setItem("selectedShows", JSON.stringify(ids));
+  location.href = "result.html";
+}
+}
+
+</script>
 
 </body>
 </html>
