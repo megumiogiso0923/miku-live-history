@@ -99,21 +99,47 @@ const selected = JSON.parse(localStorage.getItem("selectedShows") || "[]");
 const songCount = {};
 const characterCount = {};
 
+// ボーカル名 → CSSクラス変換
+function vocalistToClass(v){
+  switch(v){
+    case "初音ミク": return "miku";
+    case "鏡音リン": return "rin";
+    case "鏡音レン": return "len";
+    case "巡音ルカ": return "luka";
+    case "MEIKO": return "meiko";
+    case "KAITO": return "kaito";
+    default: return "";
+  }
+}
+
+// ボーカル文字列を配列に分解する
+function splitVocalists(vocalist){
+  return vocalist
+    .split(/[・&、\/]/)   // 区切り文字
+    .map(v => v.trim())
+    .filter(v => v.length > 0);
+}
+
 EVENTS.forEach(year=>{
   year.shows.forEach(show=>{
     if(!selected.includes(show.id)) return;
 
     show.songs.forEach(song=>{
+      // 楽曲カウント（曲自体は1回）
       if(!songCount[song.title]){
         songCount[song.title] = {
-          count:0,
-          character:song.character
+          count: 0
         };
       }
       songCount[song.title].count += 1;
 
-      characterCount[song.character] =
-        (characterCount[song.character] || 0) + 1;
+      // キャラは分割してそれぞれに加算
+      const vocalists = splitVocalists(song.vocalist);
+
+      vocalists.forEach(v=>{
+        characterCount[v] =
+          (characterCount[v] || 0) + 1;
+      });
     });
   });
 });
@@ -142,18 +168,20 @@ document.getElementById("songRanking").innerHTML = `
 // キャラ集計
 document.getElementById("characterStats").innerHTML = `
   <h2>キャラクター別</h2>
-  ${Object.entries(characterCount).map(([ch,count])=>`
-    <span class="character ${ch.toLowerCase()}">
-      ${ch}：${count}
-    </span>
-  `).join("")}
+  ${Object.entries(characterCount)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([ch,count])=>`
+      <span class="character ${vocalistToClass(ch)}">
+        ${ch}：${count}
+      </span>
+    `).join("")}
 `;
 
-  document.getElementById("backButton").addEventListener("click", ()=>{
+document.getElementById("backButton").addEventListener("click", ()=>{
   location.href = "index.html";
 });
-
 </script>
+
 
 </body>
 </html>
