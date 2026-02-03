@@ -2,7 +2,8 @@ const EVENTS = [
   
   /* ===== 2013 ===== */ 
   { year: "マジカルミライ2013", 
-   shows: [ { id:"2013_yokohama_0830_day", label:"横浜 8/30（金） 昼", songs:[
+   shows: [ 
+     { id:"2013_yokohama_0830_day", label:"横浜 8/30（金） 昼", songs:[
         { order: 1, title: "Sweet Devil", vocalists: ["初音ミク"] },
         { order: 2, title: "二次元ドリーム フィーバー", vocalists: ["初音ミク"] },
         { order: 3, title: "キャットフード", vocalists: ["初音ミク"] },
@@ -26,9 +27,7 @@ const EVENTS = [
         { order: 24, title: "ゆめゆめ", vocalists: ["初音ミク"] }
       ]
     },
-    {
-      id: "2013_yokohama_0830_night",
-      label: "横浜 8/30（金） 夜",
+    { id: "2013_yokohama_0830_night", label: "横浜 8/30（金） 夜",
       songs: [
         { order: 1, title: "Sweet Devil", vocalists: ["初音ミク"] },
         { order: 2, title: "二次元ドリーム フィーバー", vocalists: ["初音ミク"] },
