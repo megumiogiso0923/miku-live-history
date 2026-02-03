@@ -4,62 +4,10 @@ const EVENTS = [
 {
   year: "マジカルミライ2013",
   shows: [
-    { id:"2013_yokohama_0830_night", label:"横浜 8/30（金） 昼", songs:[ 
-      { order: 1, title: "Sweet Devil", vocalist: "初音ミク" },
-    { order: 2, title: "二次元ドリーム フィーバー", vocalist: "初音ミク" },
-    { order: 3, title: "キャットフード", vocalist: "初音ミク" },
-    { order: 4, title: "からくりピエロ", vocalist: "初音ミク" },
-    { order: 5, title: "ありふれたせかいせいふく", vocalist: "初音ミク" },
-    { order: 6, title: "どうぶつ占い", vocalist: "初音ミク" },
-    { order: 7, title: "深海少女", vocalist: "初音ミク" },
-    { order: 8, title: "Hello, Worker", vocalist: "巡音ルカ" },
-    { order: 9, title: "erase or zero", vocalist:["KAITO","鏡音レン"] },
-    { order: 10, title: "ピアノ×フォルテ×スキャンダル", vocalist: "MEIKO" },
-    { order: 11, title: "スキキライ", vocalist: ["鏡音リン","鏡音レン"]  },
-    { order: 12, title: "shake it!", vocalist: ["初音ミク","鏡音リン","鏡音レン"] },
-    { order: 15, title: "Last Night, Good Night(Re:Dialed)", vocalist: "初音ミク" },
-    { order: 16, title: "Leia", vocalist: "巡音ルカ" },
-    { order: 17, title: "東京テディベア", vocalist: "鏡音リン" },
-    { order: 18, title: "アンハッピーリフレイン", vocalist: "初音ミク" },
-    { order: 19, title: "glow", vocalist: "初音ミク" },
-    { order: 20, title: "Tell Your World", vocalist: "初音ミク" },
-    { order: 21, title: "39", vocalist: "初音ミク" },
-    { order: 22, title: "ODDS&ENDS", vocalist: "初音ミク" },
-    { order: 24, title: "ゆめゆめ", vocalist: "初音ミク" }] },
-    
-    { id:"2013_yokohama_0830_night", label:"横浜 8/30（金） 夜", songs:[     
-    { order: 1, title: "Sweet Devil", vocalist: "初音ミク" },
-    { order: 2, title: "二次元ドリーム フィーバー", vocalist: "初音ミク" },
-    { order: 3, title: "キャットフード", vocalist: "初音ミク" },
-    { order: 4, title: "からくりピエロ", vocalist: "初音ミク" },
-    { order: 5, title: "ありふれたせかいせいふく", vocalist: "初音ミク" },
-    { order: 6, title: "どうぶつ占い", vocalist: "初音ミク" },
-    { order: 7, title: "深海少女", vocalist: "初音ミク" },
-　  { order: 8, title: "Hello, Worker", vocalist: "巡音ルカ" },
-    { order: 9, title: "erase or zero", vocalist:["KAITO","鏡音レン"] },
-    { order: 10, title: "ピアノ×フォルテ×スキャンダル", vocalist: "MEIKO" },
-    { order: 11, title: "スキキライ", vocalist: ["鏡音リン","鏡音レン"]  },
-    { order: 12, title: "shake it!", vocalist: ["初音ミク","鏡音リン","鏡音レン"] },
-    { order: 13, title: "Weekender Girl", vocalist: "初音ミク" },
-    { order: 14, title: "FREELY TOMORROW", vocalist: "初音ミク" },
-    { order: 15, title: "Last Night, Good Night (Re:Dialed)", vocalist: "初音ミク" },
-    { order: 16, title: "Leia", vocalist: "巡音ルカ" },
-    { order: 17, title: "東京テディベア", vocalist: "鏡音リン" },
-    { order: 18, title: "アンハッピーリフレイン", vocalist: "初音ミク" },
-    { order: 19, title: "glow", vocalist: "初音ミク" },
-    { order: 20, title: "Tell Your World", vocalist: "初音ミク" },
-    { order: 21, title: "39", vocalist: "初音ミク" },
-    { order: 22, title: "ODDS&ENDS", vocalist: "初音ミク" },
-    { order: 23, title: "1/6 -out of the gravity-", vocalist: "初音ミク" },
-    { order: 24, title: "ゆめゆめ", vocalist: "初音ミク" }] }
-  ]
-},
-
-/* ===== 2014 ===== */
-{
-  year: "マジカルミライ2014",
-  shows: [
-    { id:"2014_osaka_0830_day", label:"大阪 8/30（土） 昼", songs:[[
+    {
+      id: "2013_yokohama_0830_day",
+      label: "横浜 8/30（金） 昼",
+      songs: [
         { order: 1, title: "Sweet Devil", vocalists: ["初音ミク"] },
         { order: 2, title: "二次元ドリーム フィーバー", vocalists: ["初音ミク"] },
         { order: 3, title: "キャットフード", vocalists: ["初音ミク"] },
@@ -72,7 +20,7 @@ const EVENTS = [
         { order: 10, title: "ピアノ×フォルテ×スキャンダル", vocalists: ["MEIKO"] },
         { order: 11, title: "スキキライ", vocalists: ["鏡音リン","鏡音レン"] },
         { order: 12, title: "shake it!", vocalists: ["初音ミク","鏡音リン","鏡音レン"] },
-        { order: 15, title: "Last Night, Good Night (Re:Dialed)", vocalists: ["初音ミク"] },
+        { order: 15, title: "Last Night, Good Night(Re:Dialed)", vocalists: ["初音ミク"] },
         { order: 16, title: "Leia", vocalists: ["巡音ルカ"] },
         { order: 17, title: "東京テディベア", vocalists: ["鏡音リン"] },
         { order: 18, title: "アンハッピーリフレイン", vocalists: ["初音ミク"] },
@@ -115,6 +63,39 @@ const EVENTS = [
     }
   ]
 },
+
+/* ===== 2014 ===== */
+{
+  year: "マジカルミライ2014",
+  shows: [
+    {
+      id: "2014_osaka_0830_day",
+      label: "大阪 8/30（土） 昼",
+      songs: [
+        { order: 1, title: "Sweet Devil", vocalists: ["初音ミク"] },
+        { order: 2, title: "二次元ドリーム フィーバー", vocalists: ["初音ミク"] },
+        { order: 3, title: "キャットフード", vocalists: ["初音ミク"] },
+        { order: 4, title: "からくりピエロ", vocalists: ["初音ミク"] },
+        { order: 5, title: "ありふれたせかいせいふく", vocalists: ["初音ミク"] },
+        { order: 6, title: "どうぶつ占い", vocalists: ["初音ミク"] },
+        { order: 7, title: "深海少女", vocalists: ["初音ミク"] },
+        { order: 8, title: "Hello, Worker", vocalists: ["巡音ルカ"] },
+        { order: 9, title: "erase or zero", vocalists: ["KAITO","鏡音レン"] },
+        { order: 10, title: "ピアノ×フォルテ×スキャンダル", vocalists: ["MEIKO"] },
+        { order: 11, title: "スキキライ", vocalists: ["鏡音リン","鏡音レン"] },
+        { order: 12, title: "shake it!", vocalists: ["初音ミク","鏡音リン","鏡音レン"] },
+        { order: 15, title: "Last Night, Good Night (Re:Dialed)", vocalists: ["初音ミク"] },
+        { order: 16, title: "Leia", vocalists: ["巡音ルカ"] },
+        { order: 17, title: "東京テディベア", vocalists: ["鏡音リン"] },
+        { order: 18, title: "アンハッピーリフレイン", vocalists: ["初音ミク"] },
+        { order: 19, title: "glow", vocalists: ["初音ミク"] },
+        { order: 20, title: "Tell Your World", vocalists: ["初音ミク"] },
+        { order: 21, title: "39", vocalists: ["初音ミク"] },
+        { order: 22, title: "ODDS&ENDS", vocalists: ["初音ミク"] },
+        { order: 24, title: "ゆめゆめ", vocalists: ["初音ミク"] }
+      ]
+    }
+  ]
 },
 
 /* ===== 2015 ===== */
