@@ -1,4 +1,4 @@
-const EVENTS = [ 
+const EVENTS = [
   
   /* ===== 2013 ===== */ 
   { year: "マジカルミライ2013", 
