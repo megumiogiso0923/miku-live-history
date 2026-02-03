@@ -139,11 +139,11 @@ footer{
 
 <main>
   <div id="eventList"></div>
-
-
-  </div>
-
   <div id="result" style="display:none;"></div>
+  <div class="action">
+  <button onclick="goResult()">結果を見る</button>
+</div>
+
 </main>
 
 <footer>
@@ -190,15 +190,6 @@ EVENTS.forEach(yearBlock => {
   });
 });
 
-function showResult(){
-  const checked = document.querySelectorAll("input:checked");
-  const result = document.getElementById("result");
-  result.style.display = "block";
-
-  if(checked.length === 0){
-    result.innerHTML = "まだ公演が選択されていません。";
-    return;
-  }
 
   result.innerHTML = `
     <h2>選択した公演数</h2>
