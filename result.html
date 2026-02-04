@@ -112,13 +112,6 @@ function vocalistToClass(v){
   }
 }
 
-// ボーカル文字列を配列に分解する
-function splitVocalists(vocalist){
-  return vocalist
-    .split(/[・&、\/]/)   // 区切り文字
-    .map(v => v.trim())
-    .filter(v => v.length > 0);
-}
 
 EVENTS.forEach(year=>{
   year.shows.forEach(show=>{
