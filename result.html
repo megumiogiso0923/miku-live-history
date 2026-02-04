@@ -124,25 +124,24 @@ EVENTS.forEach(year=>{
   year.shows.forEach(show=>{
     if(!selected.includes(show.id)) return;
 
-    show.songs.forEach(song=>{
-      // 楽曲カウント（曲自体は1回）
-      if(!songCount[song.title]){
-        songCount[song.title] = {
-          count: 0
-        };
-      }
-      songCount[song.title].count += 1;
+    show.songs.forEach(song => {
 
-      // キャラは分割してそれぞれに加算
-      const vocalists = splitVocalists(song.vocalist);
+  // ===== 楽曲カウント =====
+  if (!songCount[song.title]) {
+    songCount[song.title] = { count: 0 };
+  }
+  songCount[song.title].count += 1;
 
-      vocalists.forEach(v=>{
-        characterCount[v] =
-          (characterCount[v] || 0) + 1;
-      });
+  // ===== キャラクターカウント =====
+  // vocalists は配列なのでそのまま回す
+  if (Array.isArray(song.vocalists)) {
+    song.vocalists.forEach(v => {
+      characterCount[v] = (characterCount[v] || 0) + 1;
     });
-  });
+  }
+
 });
+
 
 // サマリー
 document.getElementById("summary").innerHTML = `
