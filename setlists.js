@@ -713,7 +713,7 @@ const EVENTS = [
       { "order": 23, "title": "39", "vocalists": ["初音ミク"] },
       { "order": 24, "title": "砂の惑星", "vocalists": ["初音ミク"] },
       { "order": 25, "title": "Tell Your World", "vocalists": ["初音ミク"] },
-      { "order": 26, "title": "グリーンライツ・セレナーデ", "vocalists": ["初音ミク"] }] }
+      { "order": 26, "title": "グリーンライツ・セレナーデ", "vocalists": ["初音ミク"] }] },
     { id:"2018_tokyo_0902_night", label:"東京 9/2（日） 夜", songs:[ { "order": 1, "title": "Hand in Hand", "vocalists": ["初音ミク"] },
       { "order": 2, "title": "ビバハピ", "vocalists": ["初音ミク"] },
       { "order": 3, "title": "METEOR", "vocalists": ["初音ミク"] },
@@ -754,7 +754,7 @@ const EVENTS = [
     { id:"2019_tokyo_0830_night", label:"東京 8/30（金） 夜", songs:[] },
     { id:"2019_tokyo_0831_day", label:"東京 8/31（土） 昼", songs:[] },
     { id:"2019_tokyo_0831_night", label:"東京 8/31（土） 夜", songs:[] },
-    { id:"2019_tokyo_0901_day", label:"東京 9/1（日） 昼", songs:[] }
+    { id:"2019_tokyo_0901_day", label:"東京 9/1（日） 昼", songs:[] },
     { id:"2019_tokyo_0901_night", label:"東京 9/1（日） 夜", songs:[] }
   ]
 },
