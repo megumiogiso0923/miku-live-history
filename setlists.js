@@ -16,7 +16,7 @@ const EVENTS = [
         { order: 10, title: "ピアノ×フォルテ×スキャンダル", vocalists: ["MEIKO"] },
         { order: 11, title: "スキキライ", vocalists: ["鏡音リン","鏡音レン"] },
         { order: 12, title: "shake it!", vocalists: ["初音ミク","鏡音リン","鏡音レン"] },
-        { order: 15, title: "Last Night, Good Night(Re:Dialed)", vocalists: ["初音ミク"] },
+        { order: 15, title: "Last Night, Good Night (Re:Dialed)", vocalists: ["初音ミク"] },
         { order: 16, title: "Leia", vocalists: ["巡音ルカ"] },
         { order: 17, title: "東京テディベア", vocalists: ["鏡音リン"] },
         { order: 18, title: "アンハッピーリフレイン", vocalists: ["初音ミク"] },
