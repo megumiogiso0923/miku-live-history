@@ -1477,7 +1477,7 @@ const EVENTS = [
   { order: 22, title: "Tell Your World", vocalists: ["初音ミク"] },
   { order: 23, title: "愛されなくても君がいる", vocalists: ["初音ミク"] },
   { order: 24, title: "Hand in Hand", vocalists: ["初音ミク"] },
-  { order: 25, title: "初音天地開闢神話", vocalists: ["初音ミク"] }] }
+  { order: 25, title: "初音天地開闢神話", vocalists: ["初音ミク"] }] },
     { id:"2021_tokyo_1107_night", label:"東京 11/7（日） 夜", songs:[{ order: 1, title: "ダーリンダンス", vocalists: ["初音ミク"] },
   { order: 2, title: "脳内革命ガール", vocalists: ["初音ミク"] },
   { order: 3, title: "テレキャスタービーボーイ", vocalists: ["鏡音レン"] },
